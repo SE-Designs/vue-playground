@@ -98,9 +98,10 @@ onMounted(() => {
             {{ anime.synopsis.slice(0, 120) }}...
           </p>
           <span class="flex-1"></span>
-          <div class="btn-container">
-            <button @click="addAnime(anime)">Add to my list</button>
-          </div>
+
+          <button @click="addAnime(anime)" class="button">
+            Add to my list
+          </button>
         </div>
       </div>
     </div>
@@ -125,18 +126,18 @@ onMounted(() => {
           <button
             v-if="anime.watched !== anime.episodes"
             @click="increaseWatch(anime)"
-            class="button-green"
+            class="button button-green"
           >
             +
           </button>
           <button
             v-if="anime.watched > 0"
             @click="decreaseWatch(anime)"
-            class="button-red"
+            class="button button-red"
           >
             -
           </button>
-          <button @click="removeAnime(anime.id)">Remove</button>
+          <button @click="removeAnime(anime.id)" class="button">Remove</button>
         </div>
       </div>
     </div>
@@ -148,111 +149,31 @@ onMounted(() => {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Fira Sans", sans-serif;
 }
-
 body {
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  background-color: #eee;
 }
-
 main {
   margin: 0 auto;
-  max-width: 800px;
-  padding: 2rem;
+  max-width: 768px;
+  padding: 1.5rem;
 }
-
-.results,
-.myAnime {
-  background-color: rgba(255, 255, 255, 0.17);
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-height: 480px;
-  overflow-y: scroll;
-  margin-bottom: 1.5rem;
-}
-.result {
-  display: flex;
-  margin: 1rem;
-  padding: 1rem;
-  border: 1px solid #888;
-  border-radius: 5px;
-  transition: 0.4s;
-}
-.result img {
-  width: 100px;
-  border-radius: 1rem;
-  margin-right: 1rem;
-}
-
-.btn-container {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  gap: 20px;
-  margin: 10px 0 30px;
-}
-
-button {
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  appearance: none;
-  outline: none;
-  border: none;
-  font-size: 1rem;
-  transition: all 0.4s;
-  font-weight: 700;
-}
-
-input {
-  padding: 0.5rem 1rem;
-  border: 2px solid transparent;
-  border-right: 0;
-}
-
-input:focus {
-  outline: none;
-  border: 2px solid #646cff;
-  border-right: 0;
-}
-
 h1 {
   text-align: center;
   margin-bottom: 1.5rem;
 }
-
-h2 {
-  text-align: center;
-  margin: 0.5rem 0;
-}
-
-h3 {
-  text-align: left;
-  margin: 10px 0;
-}
-
 form {
   display: flex;
   max-width: 480px;
   margin: 0 auto 1.5rem;
 }
-
-.form-input {
+form input {
   appearance: none;
   outline: none;
   border: none;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
+  background: white;
+  display: block;
   color: #888;
   font-size: 1.125rem;
   padding: 0.5rem 1rem;
@@ -260,13 +181,132 @@ form {
 }
 
 .button {
-  cursor: pointer;
   appearance: none;
   outline: none;
   border: none;
-  background-color: #646cff;
+  background: none;
+  cursor: pointer;
   display: block;
   padding: 0.5rem 1rem;
+  background-image: linear-gradient(to right, deeppink 50%, darkviolet 50%);
+  background-size: 200%;
+  color: white;
+  font-size: 1.125rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: 0.4s;
+}
+
+.button:hover {
+  background-position: right;
+}
+
+.results {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-height: 480px;
+  overflow-y: scroll;
+  margin-bottom: 1.5rem;
+}
+
+.result {
+  display: flex;
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: 0.4s;
+}
+
+.result img {
+  width: 100px;
+  border-radius: 1rem;
+  margin-right: 1rem;
+}
+
+.details {
+  flex: 1 1 0%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.details h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.details p {
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.details .button {
+  margin-left: auto;
+}
+
+.flex-1 {
+  display: block;
+  flex: 1 1 0%;
+}
+
+h2 {
+  text-align: center;
+  color: #111;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.myAnime h4 {
+  text-align: center;
+  color: #888;
+}
+
+.myAnime .anime {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.anime img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 1rem;
+  margin-right: 1rem;
+}
+
+.anime h3 {
+  max-width: 240px;
+  color: #888;
+  font-size: 1.125rem;
+}
+
+.anime .episodes {
+  margin-right: 1rem;
+  color: #888;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.anime .button:first-of-type {
+  margin-right: 0.5rem;
+}
+
+.anime .button:last-of-type {
+  margin-right: 0;
+}
+
+.btn-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-self: center;
+  gap: 0.5rem;
 }
 
 .button-green {

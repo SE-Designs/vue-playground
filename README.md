@@ -9,7 +9,5 @@
 - [x] weather-app
 - [x] nuxt-start
 - [x] todo-nuxt
-- [] recipes-vuex
-- [] manager-pinia
-- [] vue-blogs
-- [] workout-tracker-app
+- [ ] recipes-vuex
+- [ ] manager-pinia

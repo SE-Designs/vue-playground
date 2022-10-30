@@ -9,5 +9,5 @@
 - [x] weather-app
 - [x] nuxt-start
 - [x] todo-nuxt
-- [ ] recipes-vuex
-- [ ] manager-pinia
+- [x] recipes-vuex
+- [x] manager-pinia

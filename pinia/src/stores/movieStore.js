@@ -26,4 +26,16 @@ export const useMovieStore = defineStore("movieStore", {
 		],
 		activeTab: 1,
 	}),
+	// getters - for filtering and showing:
+	getters: {
+		watchedMovies() {
+			return this.movies.filter((el) => el.isWatched);
+		},
+		totalWatchedMovies() {
+			return this.movies.filter((el) => el.isWatched).length;
+		},
+		totalMovies() {
+			return this.movies.length;
+		},
+	},
 });

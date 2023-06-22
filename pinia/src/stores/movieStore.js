@@ -24,7 +24,7 @@ export const useMovieStore = defineStore("movieStore", {
 				isWatched: true,
 			},
 		],
-		activeTab: 1,
+		activeTab: 2,
 	}),
 	// getters - for filtering and showing:
 	getters: {
@@ -39,6 +39,7 @@ export const useMovieStore = defineStore("movieStore", {
 		},
 	},
 	// to change the state
+	// synchronous actions:
 	actions: {
 		setActiveTab(id) {
 			this.activeTab = id;

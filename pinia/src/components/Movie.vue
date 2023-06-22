@@ -10,10 +10,10 @@
 				{{ movie.original_title }} ({{ movie.release_date }})
 			</div>
 			<span class="movie-overview">{{ movie.overview }}</span>
-			<div class="movie-buttons">
+			<div class="movie-buttons" v-if="!isSearch">
 				<button
 					class="btn movie-buttons-watched"
-					@click="movieStore.toggleWatch(movie.id)"
+					@click="movieStore.toggleWatched(movie.id)"
 				>
 					<span v-if="!movie.isWatched">Watched</span>
 					<span v-else>Unwatched</span>
@@ -25,6 +25,9 @@
 					Delete
 				</button>
 			</div>
+			<div class="movie-buttons" v-else>
+				<button class="btn btn_green">Add</button>
+			</div>
 		</div>
 	</div>
 </template>
@@ -35,11 +38,16 @@ import { useMovieStore } from "../stores/movieStore";
 const movieStore = useMovieStore();
 const url = "https://image.tmdb.org/t/p/w300_and_h450_bestv2";
 
-defineProps({
+const props = defineProps({
 	movie: {
 		type: Object,
 		required: true,
 		default: () => {},
+	},
+	isSearch: {
+		type: Boolean,
+		required: false,
+		default: false,
 	},
 });
 </script>

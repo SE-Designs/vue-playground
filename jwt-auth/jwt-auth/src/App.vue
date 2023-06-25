@@ -1,9 +1,11 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 
 import Button from 'primevue/button'
 import { useAuthStore } from './stores/auth'
+import { computed } from 'vue'
 
+const router = useRouter()
 const authStore = useAuthStore()
 
 const checkUser = () => {
@@ -12,10 +14,17 @@ const checkUser = () => {
   if (tokens) {
     authStore.userInfo.token = tokens.token
     authStore.userInfo.refreshToken = tokens.refreshToken
-    authStore.userInfo.expiresIn = tokens.expiresIn
   }
 }
 
+const logout = () => {
+  localStorage.removeItem('userTokens')
+  authStore.logout()
+
+  router.push('/signin')
+}
+
+const token = computed(() => authStore.userInfo.token)
 checkUser()
 </script>
 
@@ -30,12 +39,17 @@ checkUser()
           <Button label="Cars" />
         </RouterLink>
       </div>
-      <div class="btn-container">
+      <div class="btn-container" v-if="!token">
         <RouterLink to="/signin">
           <Button label="Sign In" />
         </RouterLink>
         <RouterLink to="/signup">
           <Button label="Sign Up" />
+        </RouterLink>
+      </div>
+      <div class="btn-container" v-else>
+        <RouterLink to="/signin" @click.prevent="logout">
+          <Button label="Logout" />
         </RouterLink>
       </div>
     </nav>

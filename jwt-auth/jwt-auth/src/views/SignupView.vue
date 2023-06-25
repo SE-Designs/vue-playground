@@ -13,7 +13,8 @@ const email = ref()
 const password = ref()
 
 const signup = async () => {
-  await authStore.signup({ email: email.value, password: password.value })
+  await authStore.auth({ email: email.value, password: password.value }, 'signup')
+  router.push('/signin')
 }
 </script>
 

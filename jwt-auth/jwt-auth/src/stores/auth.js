@@ -16,12 +16,14 @@ export const useAuthStore = defineStore('authstore', () => {
   const error = ref('')
   const loader = ref(false)
 
-  const signup = async (payload) => {
+  const auth = async (payload, type) => {
+    const stringUrl = type === 'signup' ? 'signUp' : 'signInWithPassword'
+
     error.value = ''
     loader.value = true
     try {
       let response = await axios.post(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`,
+        `https://identitytoolkit.googleapis.com/v1/accounts:${stringUrl}?key=${apiKey}`,
         {
           ...payload,
           returnSecureToken: true
@@ -35,10 +37,7 @@ export const useAuthStore = defineStore('authstore', () => {
         refreshToken: response.data.refreshToken,
         expiresIn: response.data.expiresIn
       }
-
-      loader.value = false
     } catch (err) {
-      console.log(err.response.data.error.message)
       switch (err.response.data.error.message) {
         case 'EMAIL_EXISTS':
           error.value = 'Email already exists'
@@ -46,13 +45,21 @@ export const useAuthStore = defineStore('authstore', () => {
         case 'OPERATION_NOT_ALLOWED':
           error.value = 'Operation not allowed'
           break
+        case 'EMAIL_NOT_FOUND':
+          error.value = 'Email not found'
+          break
+        case 'INVALID_PASSWORD':
+          error.value = 'Invalid password'
+          break
         default:
           error.value = 'Something went wrong'
           break
       }
+      throw error.value
+    } finally {
       loader.value = false
     }
   }
 
-  return { signup, userInfo, error, loader }
+  return { auth, userInfo, error, loader }
 })

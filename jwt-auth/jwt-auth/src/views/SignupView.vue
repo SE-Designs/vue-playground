@@ -1,12 +1,14 @@
 <script setup>
 import { ref } from 'vue'
 import { useAuthStore } from '../stores/auth'
+import { useRouter } from 'vue-router'
 
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
 import Message from 'primevue/message'
 import Loader from '../components/Loader.vue'
 
+const router = useRouter()
 const authStore = useAuthStore()
 
 const email = ref()

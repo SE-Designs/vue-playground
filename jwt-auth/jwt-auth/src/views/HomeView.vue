@@ -4,6 +4,7 @@ import Button from 'primevue/button'
 
 <template>
   <main>
+    <h2>JWT-Auth</h2>
     <Button label="Submit" />
   </main>
 </template>

@@ -2,14 +2,34 @@
 import { RouterLink, RouterView } from 'vue-router'
 
 import Button from 'primevue/button'
+import { useAuthStore } from './stores/auth'
+
+const authStore = useAuthStore()
+
+const checkUser = () => {
+  const tokens = JSON.parse(localStorage.getItem('userTokens'))
+
+  if (tokens) {
+    authStore.userInfo.token = tokens.token
+    authStore.userInfo.refreshToken = tokens.refreshToken
+    authStore.userInfo.expiresIn = tokens.expiresIn
+  }
+}
+
+checkUser()
 </script>
 
 <template>
   <header>
     <nav>
-      <RouterLink to="/">
-        <Button label="Home" />
-      </RouterLink>
+      <div class="btn-container">
+        <RouterLink to="/">
+          <Button label="Home" />
+        </RouterLink>
+        <RouterLink to="/cars">
+          <Button label="Cars" />
+        </RouterLink>
+      </div>
       <div class="btn-container">
         <RouterLink to="/signin">
           <Button label="Sign In" />
